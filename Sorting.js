@@ -16,21 +16,46 @@
 //
 //
 
-//42  56
-//2
-//4 56
-//24
-// 56
-//2456
+//         28376541
 
+mergeSort = array => {
+    if (array.length <= 1) {
+        console.log("array: " ,array)
+        return array;
+    }
 
-//28376541
+    const middle = Math.floor(array.length / 2);
+    let left = array.slice(0, middle);
+    let right = array.slice(middle, array.length);
+    console.log("inside mergeSort()","left: ", left, "right: ", right)
+    left = mergeSort(left);
+    right = mergeSort(right);
+    return merge(left, right, array);
+};
 
+merge = (left, right, array) => {
+    let leftIndex = 0;
+    let rightIndex = 0;
+    let outputIndex = 0;
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex] < right[rightIndex]) {
+            array[outputIndex++] = left[leftIndex++];
+        }
+        else {
+            array[outputIndex++] = right[rightIndex++];
+        }
+    }
+    console.log("inside merge()", "left: ", left, "right: ", right, "array: ", array)
 
+    for (let i = leftIndex; i < left.length; i++) {
+        array[outputIndex++] = left[i];
+    }
 
-//merge(2837, 6541, 28376541)
+    for (let i = rightIndex; i < right.length; i++) {
+        array[outputIndex++] = right[i];
+    }
+    return array;
+};
 
-//28376541
-
-//leftIndex
-//
+let arr = [2,8,3,7,6,5,4,1];
+console.log(mergeSort(arr), arr);
